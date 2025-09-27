@@ -22,7 +22,7 @@ export default function Index() {
               <a href="#reviews" className="text-foreground hover:text-primary transition-colors">Отзывы</a>
               <a href="#contact" className="text-foreground hover:text-primary transition-colors">Контакты</a>
             </div>
-            <Button className="art-nouveau-btn">
+            <Button className="art-nouveau-btn art-nouveau-btn-ginkgo">
               <Icon name="Phone" size={16} className="mr-2" />
               Связаться
             </Button>
@@ -46,11 +46,11 @@ export default function Index() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="art-nouveau-btn bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button size="lg" className="art-nouveau-btn art-nouveau-btn-ginkgo bg-primary text-primary-foreground hover:bg-primary/90">
                   <Icon name="Palette" size={20} className="mr-2" />
                   Заказать реставрацию
                 </Button>
-                <Button size="lg" variant="outline" className="art-nouveau-outline-btn">
+                <Button size="lg" variant="outline" className="art-nouveau-outline-btn art-nouveau-outline-floral">
                   <Icon name="Image" size={20} className="mr-2" />
                   Посмотреть работы
                 </Button>
@@ -266,11 +266,11 @@ export default function Index() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="art-nouveau-btn bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button size="lg" className="art-nouveau-btn art-nouveau-btn-ginkgo bg-primary text-primary-foreground hover:bg-primary/90">
                   <Icon name="MapPin" size={20} className="mr-2" />
                   Вызвать мастера
                 </Button>
-                <Button size="lg" variant="outline" className="art-nouveau-outline-btn">
+                <Button size="lg" variant="outline" className="art-nouveau-outline-btn art-nouveau-outline-floral">
                   <Icon name="Calculator" size={20} className="mr-2" />
                   Рассчитать стоимость
                 </Button>
@@ -340,7 +340,7 @@ export default function Index() {
                 features: ["Изготовление деталей", "Полировка металла", "Замена механизмов"]
               }
             ].map((service, index) => (
-              <Card key={index} className="art-nouveau-card hover:shadow-lg transition-all duration-300">
+              <Card key={index} className="art-nouveau-card art-nouveau-card-lily hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name={service.icon as any} size={24} className="text-primary" />
@@ -551,7 +551,7 @@ export default function Index() {
                       placeholder="Опишите что нужно отреставрировать..."
                     />
                   </div>
-                  <Button className="w-full art-nouveau-btn bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button className="w-full art-nouveau-btn art-nouveau-btn-ginkgo bg-primary text-primary-foreground hover:bg-primary/90">
                     <Icon name="Send" size={16} className="mr-2" />
                     Отправить заявку
                   </Button>
@@ -582,45 +582,116 @@ export default function Index() {
       <style>{`
         .art-nouveau-btn {
           position: relative;
-          border-radius: 25px;
+          border-radius: 30px;
           overflow: hidden;
           border: 2px solid transparent;
           background: linear-gradient(135deg, #6B7A84 0%, #A79379 100%);
-          transition: all 0.3s ease;
-        }
-        
-        .art-nouveau-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(107, 122, 132, 0.3);
+          transition: all 0.4s ease;
+          padding: 12px 24px !important;
         }
         
         .art-nouveau-btn::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          transition: left 0.5s ease;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          border-radius: 32px;
+          background: conic-gradient(from 0deg, 
+            rgba(167, 147, 121, 0.8), 
+            rgba(107, 122, 132, 0.8), 
+            rgba(167, 147, 121, 0.8));
+          z-index: -1;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+        
+        .art-nouveau-btn::after {
+          content: '';
+          position: absolute;
+          top: 3px;
+          left: 8px;
+          right: 8px;
+          bottom: 3px;
+          border-radius: 25px;
+          background: 
+            radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
+            radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .art-nouveau-btn:hover {
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 
+            0 12px 30px rgba(107, 122, 132, 0.3),
+            0 4px 8px rgba(167, 147, 121, 0.2);
         }
         
         .art-nouveau-btn:hover::before {
-          left: 100%;
+          opacity: 1;
+        }
+        
+        .art-nouveau-btn:hover::after {
+          opacity: 1;
         }
         
         .art-nouveau-outline-btn {
-          border: 2px solid #6B7A84;
-          border-radius: 25px;
+          border: 2px solid transparent;
+          border-radius: 30px;
           position: relative;
           overflow: hidden;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
+          background: linear-gradient(white, white) padding-box,
+                      conic-gradient(from 45deg, #6B7A84, #A79379, #6B7A84, #A79379) border-box;
+          padding: 12px 24px !important;
+        }
+        
+        .art-nouveau-outline-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 28px;
+          background: 
+            radial-gradient(circle at 25% 25%, rgba(167, 147, 121, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(107, 122, 132, 0.1) 0%, transparent 50%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .art-nouveau-outline-btn::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(167, 147, 121, 0.5), transparent);
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 0.4s ease;
         }
         
         .art-nouveau-outline-btn:hover {
-          background: #6B7A84;
+          background: linear-gradient(135deg, #6B7A84, #A79379) padding-box,
+                      conic-gradient(from 45deg, #6B7A84, #A79379, #6B7A84, #A79379) border-box;
           color: white;
-          transform: translateY(-2px);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 8px 20px rgba(107, 122, 132, 0.25);
+        }
+        
+        .art-nouveau-outline-btn:hover::before {
+          opacity: 1;
+        }
+        
+        .art-nouveau-outline-btn:hover::after {
+          transform: translate(-50%, -50%) scale(8);
+          opacity: 0.3;
         }
         
         .art-nouveau-card {
@@ -813,6 +884,95 @@ export default function Index() {
             transparent 100%);
           border-radius: 2px;
           margin: 2rem 0;
+        }
+        
+        /* Ginkgo leaf inspired decorative elements */
+        .art-nouveau-btn-ginkgo::before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: 8px;
+          width: 12px;
+          height: 12px;
+          background: 
+            radial-gradient(ellipse 60% 80% at 50% 20%, 
+              rgba(255, 255, 255, 0.4) 0%, 
+              rgba(255, 255, 255, 0.2) 40%, 
+              transparent 70%);
+          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+          transform: rotate(-15deg);
+          opacity: 0.7;
+        }
+        
+        .art-nouveau-btn-ginkgo::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          right: 8px;
+          width: 10px;
+          height: 10px;
+          background: 
+            radial-gradient(ellipse 70% 90% at 50% 10%, 
+              rgba(255, 255, 255, 0.3) 0%, 
+              rgba(255, 255, 255, 0.1) 50%, 
+              transparent 80%);
+          border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+          transform: rotate(25deg);
+          opacity: 0.6;
+        }
+        
+        /* Floral pattern for outline buttons */
+        .art-nouveau-outline-floral::before {
+          content: '';
+          position: absolute;
+          top: 4px;
+          left: 6px;
+          width: 8px;
+          height: 8px;
+          background: 
+            conic-gradient(from 0deg at 50% 50%, 
+              transparent 0deg, 
+              rgba(107, 122, 132, 0.3) 60deg, 
+              transparent 120deg,
+              rgba(167, 147, 121, 0.3) 180deg,
+              transparent 240deg,
+              rgba(107, 122, 132, 0.3) 300deg,
+              transparent 360deg);
+          border-radius: 50%;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .art-nouveau-outline-floral:hover::before {
+          opacity: 1;
+        }
+        
+        /* Lily-inspired elements for cards */
+        .art-nouveau-card-lily {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .art-nouveau-card-lily::before {
+          content: '';
+          position: absolute;
+          top: -20px;
+          right: -20px;
+          width: 40px;
+          height: 40px;
+          background: 
+            radial-gradient(ellipse 80% 60% at 30% 70%, 
+              rgba(167, 147, 121, 0.1) 0%, 
+              rgba(167, 147, 121, 0.05) 50%, 
+              transparent 80%);
+          border-radius: 50% 20% 80% 30%;
+          transform: rotate(45deg);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+        
+        .art-nouveau-card-lily:hover::before {
+          opacity: 1;
         }
       `}</style>
     </div>
