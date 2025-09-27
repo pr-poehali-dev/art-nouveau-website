@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,6 +7,27 @@ import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [beforeAfterValue, setBeforeAfterValue] = useState([50]);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with scroll animation classes
+    const elementsToAnimate = document.querySelectorAll('.scroll-animate, .scroll-animate-delay, .scroll-animate-card');
+    elementsToAnimate.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,7 +55,7 @@ export default function Index() {
       <section id="hero" className="pt-20 pb-16 px-4">
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 animate-fade-in">
+            <div className="space-y-8 scroll-animate">
               <div className="space-y-4">
                 <Badge variant="outline" className="text-sm">Профессиональная реставрация</Badge>
                 <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary leading-tight">
@@ -56,7 +77,7 @@ export default function Index() {
                 </Button>
               </div>
             </div>
-            <div className="relative animate-slide-in">
+            <div className="relative scroll-animate-delay">
               <div className="aspect-square rounded-3xl overflow-hidden bg-muted art-nouveau-frame">
                 <img 
                   src="/img/c9f6bc2b-ac91-4683-b25b-7f0bd8f28e4b.jpg" 
@@ -73,6 +94,11 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Art Nouveau Decorative Divider */}
+      <div className="py-8 flex justify-center items-center scroll-animate">
+        <div className="art-nouveau-botanical-divider"></div>
+      </div>
+
       {/* How It Works Section */}
       <section className="py-16 px-4 bg-gradient-to-br from-muted/20 via-background to-muted/30 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -82,7 +108,7 @@ export default function Index() {
         </div>
         
         <div className="container mx-auto relative z-10">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate">
             <h2 className="text-4xl font-heading font-bold text-primary mb-4">Как это работает</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Мы разработали уникальный процесс реставрации, сочетающий традиционные техники 
@@ -124,7 +150,7 @@ export default function Index() {
                 color: "from-primary to-secondary"
               }
             ].map((item, index) => (
-              <div key={index} className="relative group">
+              <div key={index} className="relative group scroll-animate-card">
                 <Card className="art-nouveau-organic-card h-full">
                   <CardContent className="p-6 text-center">
                     <div className={`w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center relative z-10`}>
@@ -153,6 +179,11 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Art Nouveau Floral Divider */}
+      <div className="py-8 flex justify-center items-center scroll-animate">
+        <div className="art-nouveau-floral-divider"></div>
+      </div>
 
       {/* Advantages Section */}
       <section className="py-16 px-4 relative overflow-hidden">
@@ -222,6 +253,11 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Art Nouveau Lily Divider */}
+      <div className="py-8 flex justify-center items-center scroll-animate">
+        <div className="art-nouveau-lily-divider"></div>
+      </div>
 
       {/* Mobile Service Section */}
       <section className="py-16 px-4 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
@@ -310,10 +346,15 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Art Nouveau Vine Divider */}
+      <div className="py-8 flex justify-center items-center scroll-animate">
+        <div className="art-nouveau-vine-divider"></div>
+      </div>
+
       {/* Services Section */}
       <section id="services" className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 scroll-animate">
             <h2 className="text-4xl font-heading font-bold text-primary mb-4">Наши услуги</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Полный цикл реставрационных работ с использованием традиционных техник и современных материалов
@@ -973,6 +1014,234 @@ export default function Index() {
         
         .art-nouveau-card-lily:hover::before {
           opacity: 1;
+        }
+        
+        /* Art Nouveau Decorative Dividers */
+        .art-nouveau-botanical-divider {
+          width: 300px;
+          height: 60px;
+          position: relative;
+          background: 
+            radial-gradient(ellipse 40px 20px at 50% 50%, rgba(167, 147, 121, 0.3) 0%, transparent 70%),
+            radial-gradient(ellipse 30px 15px at 30% 30%, rgba(107, 122, 132, 0.2) 0%, transparent 70%),
+            radial-gradient(ellipse 35px 18px at 70% 70%, rgba(167, 147, 121, 0.25) 0%, transparent 70%);
+        }
+        
+        .art-nouveau-botanical-divider::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(167, 147, 121, 0.6) 20%, 
+            rgba(107, 122, 132, 0.8) 50%, 
+            rgba(167, 147, 121, 0.6) 80%, 
+            transparent 100%);
+          transform: translateY(-50%);
+        }
+        
+        .art-nouveau-botanical-divider::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 20px;
+          height: 20px;
+          background: 
+            radial-gradient(circle, rgba(167, 147, 121, 0.8) 0%, rgba(107, 122, 132, 0.6) 50%, transparent 80%);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          border: 2px solid rgba(167, 147, 121, 0.4);
+        }
+        
+        .art-nouveau-floral-divider {
+          width: 250px;
+          height: 80px;
+          position: relative;
+        }
+        
+        .art-nouveau-floral-divider::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          width: 25px;
+          height: 25px;
+          background: 
+            conic-gradient(from 0deg, 
+              rgba(167, 147, 121, 0.6) 0deg, 
+              transparent 60deg,
+              rgba(107, 122, 132, 0.4) 120deg,
+              transparent 180deg,
+              rgba(167, 147, 121, 0.5) 240deg,
+              transparent 300deg);
+          border-radius: 50% 20% 80% 30%;
+          transform: translateY(-50%) rotate(-15deg);
+        }
+        
+        .art-nouveau-floral-divider::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 20%;
+          width: 25px;
+          height: 25px;
+          background: 
+            conic-gradient(from 45deg, 
+              rgba(107, 122, 132, 0.6) 0deg, 
+              transparent 60deg,
+              rgba(167, 147, 121, 0.4) 120deg,
+              transparent 180deg,
+              rgba(107, 122, 132, 0.5) 240deg,
+              transparent 300deg);
+          border-radius: 20% 50% 30% 80%;
+          transform: translateY(-50%) rotate(15deg);
+        }
+        
+        .art-nouveau-lily-divider {
+          width: 280px;
+          height: 70px;
+          position: relative;
+          background: 
+            linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(167, 147, 121, 0.1) 25%, 
+              rgba(107, 122, 132, 0.15) 50%, 
+              rgba(167, 147, 121, 0.1) 75%, 
+              transparent 100%);
+          border-radius: 50px;
+        }
+        
+        .art-nouveau-lily-divider::before {
+          content: '';
+          position: absolute;
+          top: 15%;
+          left: 50%;
+          width: 40px;
+          height: 30px;
+          background: 
+            radial-gradient(ellipse 80% 60% at 50% 80%, 
+              rgba(167, 147, 121, 0.4) 0%, 
+              rgba(167, 147, 121, 0.2) 50%, 
+              transparent 80%);
+          border-radius: 50% 50% 80% 80% / 30% 30% 70% 70%;
+          transform: translateX(-50%);
+        }
+        
+        .art-nouveau-lily-divider::after {
+          content: '';
+          position: absolute;
+          bottom: 15%;
+          left: 50%;
+          width: 30px;
+          height: 25px;
+          background: 
+            radial-gradient(ellipse 70% 80% at 50% 20%, 
+              rgba(107, 122, 132, 0.4) 0%, 
+              rgba(107, 122, 132, 0.2) 50%, 
+              transparent 80%);
+          border-radius: 80% 80% 50% 50% / 70% 70% 30% 30%;
+          transform: translateX(-50%);
+        }
+        
+        .art-nouveau-vine-divider {
+          width: 320px;
+          height: 60px;
+          position: relative;
+          background: 
+            repeating-linear-gradient(45deg, 
+              transparent 0px, 
+              rgba(167, 147, 121, 0.1) 8px, 
+              transparent 16px, 
+              rgba(107, 122, 132, 0.1) 24px, 
+              transparent 32px);
+          clip-path: ellipse(160px 30px);
+        }
+        
+        .art-nouveau-vine-divider::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 25%;
+          width: 15px;
+          height: 15px;
+          background: 
+            radial-gradient(circle, rgba(167, 147, 121, 0.7) 0%, transparent 70%);
+          border-radius: 50%;
+          transform: translateY(-50%);
+        }
+        
+        .art-nouveau-vine-divider::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 25%;
+          width: 15px;
+          height: 15px;
+          background: 
+            radial-gradient(circle, rgba(107, 122, 132, 0.7) 0%, transparent 70%);
+          border-radius: 50%;
+          transform: translateY(-50%);
+        }
+        
+        /* Scroll Animation Classes */
+        .scroll-animate {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s ease-out;
+        }
+        
+        .scroll-animate.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .scroll-animate-delay {
+          opacity: 0;
+          transform: translateX(50px) scale(0.95);
+          transition: all 1s ease-out 0.2s;
+        }
+        
+        .scroll-animate-delay.animate-in {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+        
+        .scroll-animate-card {
+          opacity: 0;
+          transform: translateY(40px) rotateX(15deg);
+          transition: all 0.6s ease-out;
+        }
+        
+        .scroll-animate-card.animate-in {
+          opacity: 1;
+          transform: translateY(0) rotateX(0deg);
+        }
+        
+        .scroll-animate-card:nth-child(1) { transition-delay: 0.1s; }
+        .scroll-animate-card:nth-child(2) { transition-delay: 0.2s; }
+        .scroll-animate-card:nth-child(3) { transition-delay: 0.3s; }
+        .scroll-animate-card:nth-child(4) { transition-delay: 0.4s; }
+        
+        /* Divider animations */
+        .art-nouveau-botanical-divider,
+        .art-nouveau-floral-divider,
+        .art-nouveau-lily-divider,
+        .art-nouveau-vine-divider {
+          opacity: 0;
+          transform: scale(0.8);
+          transition: all 1s ease-out;
+        }
+        
+        .animate-in .art-nouveau-botanical-divider,
+        .animate-in .art-nouveau-floral-divider,
+        .animate-in .art-nouveau-lily-divider,
+        .animate-in .art-nouveau-vine-divider {
+          opacity: 1;
+          transform: scale(1);
         }
       `}</style>
     </div>
